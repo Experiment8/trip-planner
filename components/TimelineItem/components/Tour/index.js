@@ -7,14 +7,19 @@ import Moment from 'moment';
 
 import { lineStyle, dotStyle, itemListStyle } from '../../styles';
 
-export default class Accommodation extends Component {
+const getTimeEstimate = ({ endEpoch, startEpoch }) => {
+  const difference = Moment.duration(endEpoch - startEpoch);
+
+  return `${difference.hours()}h`;
+};
+
+export default class Tour extends Component {
 
   render() {
 
     const {
-      startEpoch,
       name,
-      checkOutEpoch
+      startEpoch
     } = this.props;
 
     return(
@@ -26,11 +31,11 @@ export default class Accommodation extends Component {
         </Text>
         <View style={styles.content}>
           <View style={styles.icon}>
-            <Icon name="home" color="blue" size={34} style={styles.iconContent} />
+            <Icon name="directions-boat" color="green" size={34} />
           </View>
           <View style={styles.data}>
             <Text h4 style={styles.name}>{ name }</Text>
-            <Text style={styles.checkOut}>Check-out: { Moment(checkOutEpoch).format('HH:mm') }</Text>
+            <Text>Suggested time: { getTimeEstimate(this.props) }.</Text>
           </View>
         </View>
       </View>
@@ -41,19 +46,19 @@ export default class Accommodation extends Component {
 const styles = StyleSheet.create({
   content: {
     display: 'flex',
-    marginTop: 10,
     flexDirection: 'row',
+    marginTop: 10,
     marginLeft: 20
-
   },
   data: {
+    flex: 1,
     marginLeft: 10
   },
   icon: {
     width: 50,
     height: 50,
     borderWidth: 2,
-    borderColor: 'blue',
+    borderColor: 'green',
     borderStyle: 'solid',
     borderRadius: 50,
     justifyContent: 'center'
@@ -66,4 +71,7 @@ const styles = StyleSheet.create({
     color: '#aaa',
     alignItems: 'center'
   },
+  button: {
+    backgroundColor: 'blue'
+  }
 });

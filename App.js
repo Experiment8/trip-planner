@@ -5,6 +5,7 @@ import { Header, Text } from 'react-native-elements';
 
 import TimelineItem from './components/TimelineItem';
 import { timeline1 } from './config';
+import BottomMenu from "./components/BottomMenu";
 
 export default class App extends Component {
 
@@ -51,5 +52,8 @@ const styles = StyleSheet.create({
   },
   map: {
     height: 300
+  },
+  spacer: {
+    height: 100
   }
 });

@@ -8,7 +8,7 @@ const getIconName = by => {
 
   switch(by) {
 
-    case 'subway':
+    case 'UNDERGROUND':
       return 'subway';
 
     default:
@@ -18,15 +18,16 @@ const getIconName = by => {
 
 };
 
-const getTransportText = ({ by, duration }) => {
+const getTransportText = ({ by, startEpoch, endEpoch }) => {
+  const formattedDuration = (endEpoch - startEpoch) / 1e3 / 60;
 
   switch(by) {
 
-    case 'subway':
-      return `Take the Subway, it's only ${ duration }.`;
+    case 'UNDERGROUND':
+      return `Take the Subway, it's only ${formattedDuration}min`;
 
     default:
-      return 'transport';
+      return `It's only ${formattedDuration}min`;
 
   }
 
@@ -44,7 +45,7 @@ export default class Transport extends Component {
       <View style={styles.listItem}>
         <View style={lineStyle} />
         <View style={styles.content}>
-          <Icon name={getIconName(by)} size={20} color="blue" />
+          <Icon name={getIconName(by)} size={24} color="blue" />
           <Text style={styles.text}>{ getTransportText(this.props) }</Text>
         </View>
       </View>
@@ -54,24 +55,24 @@ export default class Transport extends Component {
 
 const styles = StyleSheet.create({
   listItem: {
-    position: 'relative',
-    padding : 10,
-    paddingRight: 10,
-    paddingLeft: 10,
-    margin  : 0,
-    height  : 40,
+    position         : 'relative',
+    padding          : 10,
+    paddingRight     : 10,
+    paddingLeft      : 10,
+    margin           : 0,
+    height           : 40,
     borderBottomWidth: 1,
-    borderStyle: 'solid',
-    borderColor: '#ddd'
+    borderStyle      : 'solid',
+    borderColor      : '#ddd'
   },
-  content: {
-    display: 'flex',
-    marginLeft: 35,
+  content : {
+    display      : 'flex',
+    marginLeft   : 30,
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems   : 'center'
   },
-  text: {
-    color: 'blue',
+  text    : {
+    color     : 'blue',
     marginLeft: 5
   }
 });

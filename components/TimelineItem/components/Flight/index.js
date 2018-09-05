@@ -7,14 +7,21 @@ import Moment from 'moment';
 
 import { lineStyle, dotStyle, itemListStyle } from '../../styles';
 
-export default class Accommodation extends Component {
+export default class Landmark extends Component {
 
   render() {
 
     const {
+
       startEpoch,
-      name,
-      checkOutEpoch
+      endEpoch,
+
+      from,
+      to,
+
+      checkInEpoch,
+      gate
+
     } = this.props;
 
     return(
@@ -22,15 +29,15 @@ export default class Accommodation extends Component {
         <View style={lineStyle} />
         <Text style={styles.badge}>
           <View style={dotStyle} />
-          <Text>{ Moment(startEpoch).format('HH:mm') }</Text>
+          <Text>{ Moment(startEpoch).format('HH:mm') } to { Moment(endEpoch).format('HH:mm') }</Text>
         </Text>
         <View style={styles.content}>
           <View style={styles.icon}>
-            <Icon name="home" color="blue" size={34} style={styles.iconContent} />
+            <Icon name="airplane-takeoff" type="material-community" color="blue" size={34} />
           </View>
           <View style={styles.data}>
-            <Text h4 style={styles.name}>{ name }</Text>
-            <Text style={styles.checkOut}>Check-out: { Moment(checkOutEpoch).format('HH:mm') }</Text>
+            <Text h4 style={styles.name}>{ from } to { to }</Text>
+            <Text>Check-in: { Moment(checkInEpoch).format('HH:mm') } - Gate { gate }</Text>
           </View>
         </View>
       </View>
@@ -40,30 +47,29 @@ export default class Accommodation extends Component {
 
 const styles = StyleSheet.create({
   content: {
-    display: 'flex',
-    marginTop: 10,
+    display      : 'flex',
     flexDirection: 'row',
-    marginLeft: 20
-
+    marginTop    : 10,
+    marginLeft   : 20
   },
-  data: {
+  data   : {
     marginLeft: 10
   },
-  icon: {
-    width: 50,
-    height: 50,
-    borderWidth: 2,
-    borderColor: 'blue',
-    borderStyle: 'solid',
-    borderRadius: 50,
+  icon   : {
+    width         : 50,
+    height        : 50,
+    borderWidth   : 2,
+    borderColor   : 'blue',
+    borderStyle   : 'solid',
+    borderRadius  : 50,
     justifyContent: 'center'
   },
-  name: {
+  name   : {
     fontSize: 18
   },
-  badge: {
-    display: 'flex',
-    color: '#aaa',
+  badge  : {
+    display   : 'flex',
+    color     : '#aaa',
     alignItems: 'center'
-  },
+  }
 });

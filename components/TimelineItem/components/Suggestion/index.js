@@ -2,19 +2,64 @@ import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Icon, Text, Button } from 'react-native-elements';
 
+import Moment from 'moment';
+
+const getIconName = by => {
+
+  switch(by) {
+
+    case 'BIKE':
+      return 'bike';
+
+    case 'WALKING':
+      return 'walk';
+
+    case 'TAXI':
+      return 'taxi';
+
+    default:
+      return by;
+
+  }
+
+};
+
+const getText = ({ startEpoch, endEpoch, by }) => {
+  const formattedDuration = (endEpoch - startEpoch) / 1e3 / 60;
+
+  switch(by) {
+
+    case 'BIKE':
+      return `A ${formattedDuration}min biking will bring you there.`;
+
+    case 'WALKING':
+      return `A ${formattedDuration}min walk will bring you there.`;
+
+    case 'TAXI':
+      return `Take a cab, you'll be there in ${formattedDuration}min.`;
+
+    default:
+      return `Only ${formattedDuration}min.`;
+
+  }
+
+};
+
 export default class Suggestion extends Component {
 
   render() {
 
     const {
-      duration
+      by
     } = this.props;
 
     return(
       <View style={styles.container}>
-        <Icon name="walk" style={styles.icon} size={22} color="blue" type="material-community" />
+        <Icon name={getIconName(by)} style={styles.icon} size={22} color="blue" type="material-community" />
         <View style={styles.content}>
-          <Text style={styles.label}>A { duration } walk will bring you there.</Text>
+          <Text style={styles.label}>
+            { getText(this.props) }
+          </Text>
           <View style={styles.buttons}>
             <Button onPress={() => ({})} title="Let's go" buttonStyle={styles.button} textStyle={styles.buttonText} />
             <Button onPress={() => ({})} title="More options" buttonStyle={styles.button} textStyle={styles.buttonText} />

@@ -1,20 +1,19 @@
 import React, { Component } from 'react';
 
 import { StyleSheet, View } from 'react-native';
-import { Icon, Text } from 'react-native-elements';
+import { Icon, Text, Button } from 'react-native-elements';
 
 import Moment from 'moment';
 
 import { lineStyle, dotStyle, itemListStyle } from '../../styles';
 
-export default class Accommodation extends Component {
+export default class Restaurant extends Component {
 
   render() {
 
     const {
       startEpoch,
       name,
-      checkOutEpoch
     } = this.props;
 
     return(
@@ -26,12 +25,13 @@ export default class Accommodation extends Component {
         </Text>
         <View style={styles.content}>
           <View style={styles.icon}>
-            <Icon name="home" color="blue" size={34} style={styles.iconContent} />
+            <Icon name="restaurant" color="gray" size={34} />
           </View>
           <View style={styles.data}>
             <Text h4 style={styles.name}>{ name }</Text>
-            <Text style={styles.checkOut}>Check-out: { Moment(checkOutEpoch).format('HH:mm') }</Text>
+            <Text style={styles.notReserved}>Not reserved yet.</Text>
           </View>
+          <Button title="reserve" buttonStyle={styles.button} />
         </View>
       </View>
     )
@@ -39,31 +39,37 @@ export default class Accommodation extends Component {
 };
 
 const styles = StyleSheet.create({
-  content: {
-    display: 'flex',
-    marginTop: 10,
+  content    : {
+    display      : 'flex',
     flexDirection: 'row',
-    marginLeft: 20
-
+    marginTop    : 10,
+    marginLeft   : 20
   },
-  data: {
+  data       : {
+    flex      : 1,
     marginLeft: 10
   },
-  icon: {
-    width: 50,
-    height: 50,
-    borderWidth: 2,
-    borderColor: 'blue',
-    borderStyle: 'solid',
-    borderRadius: 50,
+  icon       : {
+    width         : 50,
+    height        : 50,
+    borderWidth   : 2,
+    borderColor   : 'gray',
+    borderStyle   : 'solid',
+    borderRadius  : 50,
     justifyContent: 'center'
   },
-  name: {
+  name       : {
     fontSize: 18
   },
-  badge: {
-    display: 'flex',
-    color: '#aaa',
+  badge      : {
+    display   : 'flex',
+    color     : '#aaa',
     alignItems: 'center'
   },
+  notReserved: {
+    color: 'red'
+  },
+  button     : {
+    backgroundColor: 'blue'
+  }
 });

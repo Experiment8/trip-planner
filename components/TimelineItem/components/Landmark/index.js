@@ -3,6 +3,14 @@ import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Icon, Text } from 'react-native-elements';
 
+import Moment from 'moment';
+
+const getTimeEstimate = ({ endEpoch, startEpoch }) => {
+  const difference = Moment.duration(endEpoch - startEpoch);
+
+  return `${difference.hours()}:${difference.minutes()}h`;
+};
+
 import { lineStyle, dotStyle, itemListStyle } from '../../styles';
 
 export default class Landmark extends Component {
@@ -10,9 +18,9 @@ export default class Landmark extends Component {
   render() {
 
     const {
-      start,
+      startEpoch,
+      endEpoch,
       name,
-      duration
     } = this.props;
 
     return(
@@ -20,7 +28,7 @@ export default class Landmark extends Component {
         <View style={lineStyle} />
         <Text style={styles.badge}>
           <View style={dotStyle} />
-          <Text>{ start }</Text>
+          <Text>{ Moment(startEpoch).format('HH:mm') }</Text>
         </Text>
         <View style={styles.content}>
           <View style={styles.icon}>
@@ -28,7 +36,7 @@ export default class Landmark extends Component {
           </View>
           <View style={styles.data}>
             <Text h4 style={styles.name}>{ name }</Text>
-            <Text style={styles.checkOut}>Suggested time: { duration }</Text>
+            <Text style={styles.checkOut}>Suggested time: { getTimeEstimate(this.props) }</Text>
           </View>
         </View>
       </View>
@@ -56,7 +64,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   name: {
-    fontSize: 24
+    fontSize: 18
   },
   badge: {
     display: 'flex',
