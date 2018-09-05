@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 
-import { StyleSheet, View, Image, FlatList } from 'react-native';
+import { StyleSheet, View, ScrollView, Image, FlatList } from 'react-native';
 import { Header, Text } from 'react-native-elements';
 
 import TimelineItem from './components/TimelineItem';
@@ -29,12 +29,12 @@ export default class App extends Component {
             style={{ width: 600, height: 300, resizeMode: Image.resizeMode.contain }}
           />
         </View>
-        <View>
+        <ScrollView>
           <FlatList
             data={timeline1}
             renderItem={({item}) => <TimelineItem item={item} />}
           />
-        </View>
+        </ScrollView>
       </Fragment>
     );
   }
