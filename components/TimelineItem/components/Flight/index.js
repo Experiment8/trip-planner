@@ -14,10 +14,6 @@ export default class Landmark extends Component {
     const {
 
       startEpoch,
-      endEpoch,
-
-      from,
-      to,
 
       checkInEpoch,
       gate
@@ -29,14 +25,14 @@ export default class Landmark extends Component {
         <View style={lineStyle} />
         <Text style={timeBadge}>
           <View style={dotStyle} />
-          <Text>{ Moment(startEpoch).format('HH:mm') } to { Moment(endEpoch).format('HH:mm') }</Text>
+          <Text>{ Moment(startEpoch).format('HH:mm') }</Text>
         </Text>
         <View style={styles.content}>
           <View style={styles.icon}>
             <Icon name="airplane-takeoff" type="material-community" color="#003580" size={34} />
           </View>
           <View style={styles.data}>
-            <Text h4 style={styles.name}>{ from } to { to }</Text>
+            <Text h4 style={styles.name}>LHR to AMS</Text>
             <Text>Check-in: { Moment(checkInEpoch).format('HH:mm') } - Gate { gate }</Text>
           </View>
         </View>

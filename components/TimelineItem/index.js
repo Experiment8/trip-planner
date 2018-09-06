@@ -9,10 +9,10 @@ import Restaurant from "./components/Restaurant";
 import Tour from "./components/Tour";
 import Flight from "./components/Flight";
 
-const getElementByType = (item, updateTransportsList, onTransportsSelection) => {
+const getElementByType = (item, updateTransportsList, onTransportsSelection, onSuggestionHide, onAcceptSuggestion) => {
 
   if (item.suggested) {
-    return (<Suggestion {...item} updateTransportsList={updateTransportsList} onTransportsSelection={onTransportsSelection} />)
+    return (<Suggestion {...item} onAcceptSuggestion={onAcceptSuggestion} onSuggestionHide={onSuggestionHide} updateTransportsList={updateTransportsList} onTransportsSelection={onTransportsSelection} />)
   }
 
   switch(item.category) {
@@ -61,10 +61,12 @@ export default class TimelineItem extends Component {
 
     const {
       item,
+      onSuggestionHide,
+      onAcceptSuggestion,
       updateTransportsList,
       onTransportsSelection
     } = this.props;
 
-    return getElementByType(item, updateTransportsList, onTransportsSelection)
+    return getElementByType(item, updateTransportsList, onTransportsSelection, onSuggestionHide, onAcceptSuggestion)
   }
 }

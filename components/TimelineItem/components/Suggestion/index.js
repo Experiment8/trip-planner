@@ -92,7 +92,9 @@ export default class Suggestion extends Component {
     const {
       category,
       id,
-      onTransportsSelection
+      onAcceptSuggestion,
+      onTransportsSelection,
+      onSuggestionHide
     } = this.props;
 
     const {
@@ -112,11 +114,17 @@ export default class Suggestion extends Component {
               { getText(this.props) }
             </Text>
             <View style={styles.buttons}>
-              <Button onPress={this.acceptSuggestion} title="Let's go" buttonStyle={styles.button} textStyle={styles.buttonText} />
+              <Button onPress={() => {
+                this.acceptSuggestion();
+                onAcceptSuggestion(id);
+              }} title="Let's go" buttonStyle={styles.button} textStyle={styles.buttonText} />
               <Button onPress={() => onTransportsSelection(id)} title="More options" buttonStyle={styles.button} textStyle={styles.buttonText} />
             </View>
           </View>
-          <Icon onPress={this.hideSuggestion} name="close" style={styles.icon} size={22} color="gray" type="material-community" />
+          <Icon onPress={() => {
+            this.hideSuggestion();
+            onSuggestionHide(id);
+          }} name="close" style={styles.icon} size={22} color="gray" type="material-community" />
         </View> : null }
 
       </Fragment>

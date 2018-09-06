@@ -67,6 +67,8 @@ export default class App extends Component {
 
     this.toggleTransportsList = this.toggleTransportsList.bind(this);
     this.updateTransportsList = this.updateTransportsList.bind(this);
+    this.onSuggestionHide     = this.onSuggestionHide.bind(this);
+    this.onSuggestionAccept   = this.onSuggestionAccept.bind(this);
   }
 
   toggleTransportsList(id) {
@@ -75,6 +77,28 @@ export default class App extends Component {
 
   updateTransportsList(transports) {
     this.setState({ transports })
+  }
+
+  onSuggestionAccept(id) {
+    this.setState({
+      timeline: this.state.timeline.map((item) => {
+        if (item.id == id) {
+          return {
+            ...item,
+            suggested: false
+          }
+        }
+        return item;
+      })
+    })
+  }
+
+  onSuggestionHide(id) {
+    this.setState({
+      timeline: this.state.timeline.filter((item) => (
+        item.id !== id
+      ))
+    })
   }
 
   componentDidMount() {
@@ -118,7 +142,7 @@ export default class App extends Component {
         { !transportsList ? <ScrollView>
           { timeline.length ? <FlatList
             data={timeline}
-            renderItem={({item}) => <TimelineItem key={item.id} item={item} onTransportsSelection={this.toggleTransportsList} />}
+            renderItem={({item}) => <TimelineItem key={item.id} item={item} onAcceptSuggestion={this.onSuggestionAccept} onSuggestionHide={this.onSuggestionHide} onTransportsSelection={this.toggleTransportsList} />}
           />  : null }
         </ScrollView> :
         <ScrollView>
