@@ -25,8 +25,8 @@ const getIconName = category => {
     case 'BUS':
       return 'bus';
 
-    case 'CRUISE':
-      return 'ship';
+    case 'WATERBUS':
+      return 'ferry';
 
     default:
       return 'transport';

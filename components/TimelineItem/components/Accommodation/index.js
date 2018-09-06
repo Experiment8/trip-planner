@@ -30,7 +30,7 @@ export default class Accommodation extends Component {
           </View>
           <View style={styles.data}>
             <Text h4 style={styles.name}>{ name }</Text>
-            <Text style={styles.checkOut}>Check-out: { Moment(checkOutEpoch).format('HH:mm') }</Text>
+            <Text style={styles.checkOut}>Check-out: 10:00</Text>
           </View>
         </View>
       </View>

@@ -25,7 +25,7 @@ const getElementByType = (item, updateTransportsList, onTransportsSelection, onS
     case 'WALKING':
     case 'BIKE':
     case 'TAXI':
-    case 'CRUISE':
+    case 'WATERBUS':
       return <Transport {...item} onTransportsSelection={onTransportsSelection} />;
 
     case 'ATTRACTION':
@@ -36,8 +36,8 @@ const getElementByType = (item, updateTransportsList, onTransportsSelection, onS
     case 'RESTAURANT':
       return <Restaurant {...item} />;
 
-    case 'WATERBUS':
-      return <Tour {...item} />;
+    // case 'WATERBUS':
+    //   return <Tour {...item} />;
 
     case 'FLIGHT':
     case 'AIRPORT':

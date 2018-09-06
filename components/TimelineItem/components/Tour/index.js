@@ -10,7 +10,8 @@ import { lineStyle, dotStyle, itemListStyle, timeBadge } from '../../styles';
 const getTimeEstimate = ({ endEpoch, startEpoch }) => {
   const difference = Moment.duration(endEpoch - startEpoch);
 
-  return `${difference.hours()}h`;
+  return difference.humanize(false);
+  //return `${difference.hours()}h`;
 };
 
 export default class Tour extends Component {

@@ -7,6 +7,16 @@ import Moment from 'moment';
 
 import { lineStyle, dotStyle, itemListStyle, timeBadge } from '../../styles';
 
+const roundToFiveMinutes = ({ startEpoch }) => {
+
+  // return Moment(startEpoch).format('HH:mm');
+  const reservationTime = Moment(startEpoch);
+
+  const remainder = 5 - (reservationTime.minute() % 5);
+
+  return Moment(reservationTime).add(remainder, "minutes").format("HH:mm");
+};
+
 export default class Restaurant extends Component {
 
   constructor(props) {
@@ -20,7 +30,7 @@ export default class Restaurant extends Component {
     reserved  : false
   };
 
-  reserveTable() {
+    reserveTable() {
     this.setState({ reserving: true });
 
     setTimeout(() => {
@@ -56,7 +66,7 @@ export default class Restaurant extends Component {
             { !reserved ?
               <Text style={styles.notReserved}>Not reserved yet.</Text>
               :
-              <Text style={styles.reserved}>Table reserved at { Moment(startEpoch).format('HH:mm') }!</Text>
+              <Text style={styles.reserved}>Table reserved at { roundToFiveMinutes(this.props) }</Text>
             }
           </View>
           { !reserved ?

@@ -8,7 +8,7 @@ import Moment from 'moment';
 const getTimeEstimate = ({ endEpoch, startEpoch }) => {
   const difference = Moment.duration(endEpoch - startEpoch);
 
-  return `${difference.hours()}:${difference.minutes()}h`;
+    return difference.humanize(false);
 };
 
 import { lineStyle, dotStyle, itemListStyle, timeBadge } from '../../styles';

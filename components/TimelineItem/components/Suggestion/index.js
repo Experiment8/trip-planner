@@ -25,8 +25,8 @@ const getIconName = category => {
     case 'BUS':
       return 'bus';
 
-    case 'CRUISE':
-      return 'ship';
+    case 'WATERBUS':
+      return 'ferry';
 
     default:
       return 'transport';
@@ -36,30 +36,30 @@ const getIconName = category => {
 };
 
 const getText = ({ startEpoch, endEpoch, category }) => {
-  const formattedDuration = Moment.duration(endEpoch - startEpoch).minutes();
+  const formattedDuration = Moment.duration(endEpoch - startEpoch).humanize(false);
 
   switch(category) {
 
     case 'UNDERGROUND':
-      return `With the Subway it's only ${formattedDuration}min.`;
+      return `With the Underground it's only ${formattedDuration}.`;
 
     case 'TAXI':
-      return `Just about ${formattedDuration}min by cab.`;
+      return `Just about ${formattedDuration} by cab.`;
 
     case 'WALKING':
-      return `Around ${formattedDuration}min walking distance.`;
+      return `Around ${formattedDuration} walking distance.`;
 
     case 'BIKE':
-      return `Bike there in ${formattedDuration}min.`;
+      return `Bike there in ${formattedDuration}.`;
 
     case 'BUS':
-      return `The bus ride takes ${formattedDuration}min.`;
+      return `The bus ride takes ${formattedDuration}.`;
 
-    case 'SHIP':
-      return `Navigate there in ${formattedDuration}min.`;
+    case 'WATERBUS':
+      return `Take the river bus for ${formattedDuration}.`;
 
     default:
-      return `It's only ${formattedDuration}min`;
+      return `It's only ${formattedDuration}`;
 
   }
 
