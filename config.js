@@ -19,7 +19,7 @@ export const timeline1 = [{
 }, {
   key       : 'dkjf9834',
   category  : 'SUGGESTION',
-  about     : 'TRANSPORTATION',
+  about     : 'TRANSPORT',
   by        : 'WALKING',
   startEpoch: 1538737200000,
   endEpoch  : 1538738100000
@@ -32,7 +32,7 @@ export const timeline1 = [{
 }, {
   key       : 'erhg43fkrn',
   category  : 'SUGGESTION',
-  about     : 'TRANSPORTATION',
+  about     : 'TRANSPORT',
   by        : 'BIKE',
   startEpoch: 1538745240000,
   endEpoch  : 1538746200000
@@ -46,7 +46,7 @@ export const timeline1 = [{
 }, {
   key       : '3948ytbv',
   category  : 'SUGGESTION',
-  about     : 'TRANSPORTATION',
+  about     : 'TRANSPORT',
   by        : 'TAXI',
   startEpoch: 1538749800000,
   endEpoch  : 1538753280000
@@ -59,4 +59,30 @@ export const timeline1 = [{
   checkInEpoch: 1538757300000,
   startEpoch  : 1538764500000,
   endEpoch    : 1538772900000
+}];
+
+export const transports = [{
+  key       : '3847yj5',
+  category  : 'TRANSPORT',
+  by        : 'TAXI',
+  startEpoch: 1538749800000,
+  endEpoch  : 1538753280000
+},{
+  key       : '3847y6bjk',
+  category  : 'TRANSPORT',
+  by        : 'BIKE',
+  startEpoch: 1538749800000,
+  endEpoch  : 1538753290000
+},{
+  key       : '4875y6bhj',
+  category  : 'TRANSPORT',
+  by        : 'WALKING',
+  startEpoch: 1538749800000,
+  endEpoch  : 1538753280000
+},{
+  key       : '8475yt6bj',
+  category  : 'TRANSPORT',
+  by        : 'UNDERGROUND',
+  startEpoch: 1538749800000,
+  endEpoch  : 1538753250000
 }];

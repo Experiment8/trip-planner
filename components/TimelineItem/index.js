@@ -9,7 +9,7 @@ import Restaurant from "./components/Restaurant";
 import Tour from "./components/Tour";
 import Flight from "./components/Flight";
 
-const getElementByType = item => {
+const getElementByType = (item, onTransportsSelection) => {
 
   switch(item.category) {
 
@@ -17,13 +17,13 @@ const getElementByType = item => {
       return <Accommodation {...item} />;
 
     case 'TRANSPORT':
-      return <Transport {...item} />;
+      return <Transport {...item} onTransportsSelection={onTransportsSelection} />;
 
     case 'LANDMARK':
       return <Landmark {...item} />;
 
     case 'SUGGESTION':
-      return <Suggestion {...item} />;
+      return <Suggestion {...item} onTransportsSelection={onTransportsSelection} />;
 
     case 'RESTAURANT':
       return <Restaurant {...item} />;
@@ -50,9 +50,10 @@ export default class TimelineItem extends Component {
   render() {
 
     const {
-      item
+      item,
+      onTransportsSelection
     } = this.props;
 
-    return getElementByType(item)
+    return getElementByType(item, onTransportsSelection)
   }
 }

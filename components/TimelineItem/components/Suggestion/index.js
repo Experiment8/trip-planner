@@ -70,7 +70,8 @@ export default class Suggestion extends Component {
   render() {
 
     const {
-      by
+      by,
+      onTransportsSelection
     } = this.props;
 
     const {
@@ -91,7 +92,7 @@ export default class Suggestion extends Component {
             </Text>
             <View style={styles.buttons}>
               <Button onPress={this.acceptSuggestion} title="Let's go" buttonStyle={styles.button} textStyle={styles.buttonText} />
-              <Button onPress={() => ({})} title="More options" buttonStyle={styles.button} textStyle={styles.buttonText} />
+              <Button onPress={onTransportsSelection} title="More options" buttonStyle={styles.button} textStyle={styles.buttonText} />
             </View>
           </View>
           <Icon onPress={this.hideSuggestion} name="close" style={styles.icon} size={22} color="gray" type="material-community" />

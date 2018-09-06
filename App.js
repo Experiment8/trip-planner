@@ -1,36 +1,77 @@
 import React, { Component, Fragment } from 'react';
 
 import { StyleSheet, View, ScrollView, Image, FlatList } from 'react-native';
-import { Header, Text } from 'react-native-elements';
+import { Header, Text, ListItem } from 'react-native-elements';
+
+import Moment from 'moment';
 
 import TimelineItem from './components/TimelineItem';
-import { getTimeline } from './api';
+import { getTimeline, getTransports } from './api';
+
+const getIconName = by => {
+
+  switch(by) {
+
+    case 'UNDERGROUND':
+      return 'subway';
+
+    case 'TAXI':
+      return 'taxi';
+
+    case 'WALKING':
+      return 'walk';
+
+    case 'BIKE':
+      return 'bike';
+
+    default:
+      return 'transport';
+
+  }
+
+};
 
 export default class App extends Component {
 
   state = {
-    timeline: []
+    timeline      : [],
+    transports    : [],
+    transportsList: false
   };
 
   constructor(props) {
-    super(props)
+    super(props);
+
+    this.toggleTransportsList = this.toggleTransportsList.bind(this);
+  }
+
+  toggleTransportsList() {
+    this.setState({ transportsList: !this.state.transportsList })
   }
 
   componentDidMount() {
     getTimeline()
       .then(timeline => {
         this.setState({ timeline })
-      })
+      });
+
+    getTransports()
+      .then(transports => {
+        this.setState({ transports })
+      });
   }
 
   render() {
 
     const {
-      timeline
+      timeline,
+      transports,
+      transportsList
     } = this.state;
 
     return (
       <Fragment>
+
         <View>
           <Header
             style={styles.header}
@@ -44,12 +85,24 @@ export default class App extends Component {
             style={{ width: 600, height: 150, resizeMode: Image.resizeMode.contain }}
           />
         </View>
-        <ScrollView>
+
+        { !transportsList ? <ScrollView>
           { timeline.length ? <FlatList
             data={timeline}
-            renderItem={({item}) => <TimelineItem item={item} />}
+            renderItem={({item}) => <TimelineItem item={item} onTransportsSelection={this.toggleTransportsList} />}
           />  : null }
-        </ScrollView>
+        </ScrollView> :
+        <ScrollView>
+          <FlatList
+            data={transports}
+            renderItem={({item}) => <ListItem
+              title={item.name}
+              subtitle={`Takes around ${Moment.duration(item.endEpoch - item.startEpoch).minutes()}mins`}
+              leftIcon={{ name: getIconName(item.by), type: 'material-community' }}
+              onPress={this.toggleTransportsList} />}
+          />
+        </ScrollView> }
+
       </Fragment>
     );
   }
