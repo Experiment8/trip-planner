@@ -23,10 +23,10 @@ export default class Landmark extends Component {
     return(
       <View style={itemListStyle}>
         <View style={lineStyle} />
-        <Text style={timeBadge}>
+        <View style={timeBadge}>
           <View style={dotStyle} />
           <Text>{ Moment(startEpoch).format('HH:mm') }</Text>
-        </Text>
+        </View>
         <View style={styles.content}>
           <View style={styles.icon}>
             <Icon name="airplane-takeoff" type="material-community" color="#003580" size={34} />
