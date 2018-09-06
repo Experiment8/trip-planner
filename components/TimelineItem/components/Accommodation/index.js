@@ -26,7 +26,7 @@ export default class Accommodation extends Component {
         </Text>
         <View style={styles.content}>
           <View style={styles.icon}>
-            <Icon name="home" color="blue" size={34} style={styles.iconContent} />
+            <Icon name="home" color="#003580" size={34} style={styles.iconContent} />
           </View>
           <View style={styles.data}>
             <Text h4 style={styles.name}>{ name }</Text>
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderWidth: 2,
-    borderColor: 'blue',
+    borderColor: '#003580',
     borderStyle: 'solid',
     borderRadius: 50,
     justifyContent: 'center'

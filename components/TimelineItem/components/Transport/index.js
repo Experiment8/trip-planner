@@ -11,6 +11,15 @@ const getIconName = by => {
     case 'UNDERGROUND':
       return 'subway';
 
+    case 'TAXI':
+      return 'taxi';
+
+    case 'WALKING':
+      return 'walk';
+
+    case 'BIKE':
+      return 'bike';
+
     default:
       return 'transport';
 
@@ -24,7 +33,16 @@ const getTransportText = ({ by, startEpoch, endEpoch }) => {
   switch(by) {
 
     case 'UNDERGROUND':
-      return `Take the Subway, it's only ${formattedDuration}min`;
+      return `With the Subway it's only ${formattedDuration}min.`;
+
+    case 'TAXI':
+      return `Just about ${formattedDuration}min by cab.`;
+
+    case 'WALKING':
+      return `Around ${formattedDuration}min walking distance.`;
+
+    case 'BIKE':
+      return `Bike there in ${formattedDuration}min.`;
 
     default:
       return `It's only ${formattedDuration}min`;
@@ -45,7 +63,7 @@ export default class Transport extends Component {
       <View style={styles.listItem}>
         <View style={lineStyle} />
         <View style={styles.content}>
-          <Icon name={getIconName(by)} size={24} color="blue" />
+          <Icon name={getIconName(by)} size={24} color="#003580" type="material-community" />
           <Text style={styles.text}>{ getTransportText(this.props) }</Text>
         </View>
       </View>
@@ -72,7 +90,7 @@ const styles = StyleSheet.create({
     alignItems   : 'center'
   },
   text    : {
-    color     : 'blue',
+    color     : '#003580',
     marginLeft: 5
   }
 });

@@ -4,16 +4,30 @@ import { StyleSheet, View, ScrollView, Image, FlatList } from 'react-native';
 import { Header, Text } from 'react-native-elements';
 
 import TimelineItem from './components/TimelineItem';
-import { timeline1 } from './config';
-import BottomMenu from "./components/BottomMenu";
+import { getTimeline } from './api';
 
 export default class App extends Component {
+
+  state = {
+    timeline: []
+  };
 
   constructor(props) {
     super(props)
   }
 
+  componentDidMount() {
+    getTimeline()
+      .then(timeline => {
+        this.setState({ timeline })
+      })
+  }
+
   render() {
+
+    const {
+      timeline
+    } = this.state;
 
     return (
       <Fragment>
@@ -31,10 +45,10 @@ export default class App extends Component {
           />
         </View>
         <ScrollView>
-          <FlatList
-            data={timeline1}
+          { timeline.length ? <FlatList
+            data={timeline}
             renderItem={({item}) => <TimelineItem item={item} />}
-          />
+          />  : null }
         </ScrollView>
       </Fragment>
     );

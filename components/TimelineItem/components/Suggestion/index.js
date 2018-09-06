@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Icon, Text, Button } from 'react-native-elements';
 
-import Moment from 'moment';
+import Transport from '../Transport';
 
 const getIconName = by => {
 
@@ -47,26 +47,57 @@ const getText = ({ startEpoch, endEpoch, by }) => {
 
 export default class Suggestion extends Component {
 
+  constructor(props) {
+    super(props);
+
+    this.acceptSuggestion = this.acceptSuggestion.bind(this);
+    this.hideSuggestion   = this.hideSuggestion.bind(this);
+  }
+
+  state = {
+    hide      : false,
+    accepted  : false
+  };
+
+  acceptSuggestion() {
+    this.setState({ accepted: true })
+  }
+
+  hideSuggestion() {
+    this.setState({ hide: true })
+  }
+
   render() {
 
     const {
       by
     } = this.props;
 
+    const {
+      hide,
+      accepted
+    } = this.state;
+
     return(
-      <View style={styles.container}>
-        <Icon name={getIconName(by)} style={styles.icon} size={22} color="blue" type="material-community" />
-        <View style={styles.content}>
-          <Text style={styles.label}>
-            { getText(this.props) }
-          </Text>
-          <View style={styles.buttons}>
-            <Button onPress={() => ({})} title="Let's go" buttonStyle={styles.button} textStyle={styles.buttonText} />
-            <Button onPress={() => ({})} title="More options" buttonStyle={styles.button} textStyle={styles.buttonText} />
+      <Fragment>
+
+        { accepted ? <Transport {...this.props} /> : null }
+
+        { (!hide && !accepted) ? <View style={styles.container}>
+          <Icon name={getIconName(by)} style={styles.icon} size={22} color="#003580" type="material-community" />
+          <View style={styles.content}>
+            <Text style={styles.label}>
+              { getText(this.props) }
+            </Text>
+            <View style={styles.buttons}>
+              <Button onPress={this.acceptSuggestion} title="Let's go" buttonStyle={styles.button} textStyle={styles.buttonText} />
+              <Button onPress={() => ({})} title="More options" buttonStyle={styles.button} textStyle={styles.buttonText} />
+            </View>
           </View>
-        </View>
-        <Icon name="close" style={styles.icon} size={22} color="gray" type="material-community" />
-      </View>
+          <Icon onPress={this.hideSuggestion} name="close" style={styles.icon} size={22} color="gray" type="material-community" />
+        </View> : null }
+
+      </Fragment>
     )
   }
 }
@@ -91,14 +122,14 @@ const styles = StyleSheet.create({
   },
   label     : {
     marginLeft: 10,
-    color     : 'blue'
+    color     : '#003580'
   },
   buttons   : {
     alignItems   : 'flex-start',
     flexDirection: 'row'
   },
   buttonText: {
-    color     : 'blue',
+    color     : '#0077cc',
     fontWeight: 'bold',
     fontSize  : 14
   },
