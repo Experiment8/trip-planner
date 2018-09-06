@@ -3,6 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { Icon, Text, Button } from 'react-native-elements';
 
 import Transport from '../Transport';
+import { getTransports } from "api";
 
 const getIconName = by => {
 
@@ -71,6 +72,7 @@ export default class Suggestion extends Component {
 
     const {
       by,
+      id,
       onTransportsSelection
     } = this.props;
 
@@ -92,7 +94,7 @@ export default class Suggestion extends Component {
             </Text>
             <View style={styles.buttons}>
               <Button onPress={this.acceptSuggestion} title="Let's go" buttonStyle={styles.button} textStyle={styles.buttonText} />
-              <Button onPress={onTransportsSelection} title="More options" buttonStyle={styles.button} textStyle={styles.buttonText} />
+              <Button onPress={() => onTransportsSelection(id)} title="More options" buttonStyle={styles.button} textStyle={styles.buttonText} />
             </View>
           </View>
           <Icon onPress={this.hideSuggestion} name="close" style={styles.icon} size={22} color="gray" type="material-community" />

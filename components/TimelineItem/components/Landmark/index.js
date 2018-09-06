@@ -31,7 +31,7 @@ export default class Landmark extends Component {
         </Text>
         <View style={styles.content}>
           <View style={styles.icon}>
-            <Icon name="home" color="orange" size={34} />
+            <Icon name="university" color="orange" type="font-awesome" size={24} />
           </View>
           <View style={styles.data}>
             <Text h4 style={styles.name}>{ name }</Text>

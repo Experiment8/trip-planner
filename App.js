@@ -31,28 +31,45 @@ const getIconName = by => {
 
 };
 
+const flattenItems = items => (
+  items.map(item => ({ ...item, ...item.event, key: item.event.id.toString() }))
+);
+
+const updateCurrentTransport = (transportAbout, items, updatedItem) => (
+  items.map((item) => {
+    if (item.id.toString() === transportAbout) return updatedItem;
+    return item;
+  })
+);
+
 export default class App extends Component {
 
   state = {
     timeline      : [],
     transports    : [],
-    transportsList: false
+    transportsList: false,
+    transportAbout: ''
   };
 
   constructor(props) {
     super(props);
 
     this.toggleTransportsList = this.toggleTransportsList.bind(this);
+    this.updateTransportsList = this.updateTransportsList.bind(this);
   }
 
-  toggleTransportsList() {
-    this.setState({ transportsList: !this.state.transportsList })
+  toggleTransportsList(id) {
+    this.setState({ transportsList: !this.state.transportsList, transportAbout: id.toString() })
+  }
+
+  updateTransportsList(transports) {
+    this.setState({ transports })
   }
 
   componentDidMount() {
     getTimeline()
       .then(timeline => {
-        this.setState({ timeline })
+        this.setState({ timeline: flattenItems(timeline.timelineItems) })
       });
 
     getTransports()
@@ -66,7 +83,8 @@ export default class App extends Component {
     const {
       timeline,
       transports,
-      transportsList
+      transportsList,
+      transportAbout
     } = this.state;
 
     return (
@@ -89,17 +107,21 @@ export default class App extends Component {
         { !transportsList ? <ScrollView>
           { timeline.length ? <FlatList
             data={timeline}
-            renderItem={({item}) => <TimelineItem item={item} onTransportsSelection={this.toggleTransportsList} />}
+            renderItem={({item}) => <TimelineItem key={item.id} item={item} onTransportsSelection={this.toggleTransportsList} />}
           />  : null }
         </ScrollView> :
         <ScrollView>
           <FlatList
             data={transports}
             renderItem={({item}) => <ListItem
+              key={item.id}
               title={item.name}
               subtitle={`Takes around ${Moment.duration(item.endEpoch - item.startEpoch).minutes()}mins`}
               leftIcon={{ name: getIconName(item.by), type: 'material-community' }}
-              onPress={this.toggleTransportsList} />}
+              onPress={() => {
+                this.setState({ timeline: updateCurrentTransport(this.state.timeline, transportAbout, item) });
+                this.toggleTransportsList();
+              }} />}
           />
         </ScrollView> }
 

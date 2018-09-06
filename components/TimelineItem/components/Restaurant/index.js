@@ -61,9 +61,10 @@ export default class Restaurant extends Component {
           </View>
           { !reserved ?
             <Button
-              title={ reserving ? 'Reserving...' : 'Reserve' }
+              title={ reserving ? '' : 'Reserve' }
               loading={reserving}
               disabled={reserving}
+              textStyle={styles.buttonText}
               buttonStyle={styles.button}
               onPress={this.reserveTable}
             />
@@ -105,5 +106,8 @@ const styles = StyleSheet.create({
   },
   button     : {
     backgroundColor: '#003580'
+  },
+  buttonText : {
+    fontSize : 18
   }
 });

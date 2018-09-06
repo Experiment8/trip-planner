@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Icon, Text } from 'react-native-elements';
 
+import Moment from 'moment';
+
 import { lineStyle } from "../../styles";
 
-const getIconName = by => {
+const getIconName = category => {
 
-  switch(by) {
+  switch(category) {
 
     case 'UNDERGROUND':
       return 'subway';
@@ -20,6 +22,12 @@ const getIconName = by => {
     case 'BIKE':
       return 'bike';
 
+    case 'BUS':
+      return 'bus';
+
+    case 'CRUISE':
+      return 'ship';
+
     default:
       return 'transport';
 
@@ -27,10 +35,10 @@ const getIconName = by => {
 
 };
 
-const getTransportText = ({ by, startEpoch, endEpoch }) => {
-  const formattedDuration = (endEpoch - startEpoch) / 1e3 / 60;
+const getTransportText = ({ category, startEpoch, endEpoch }) => {
+  const formattedDuration = Moment.duration(endEpoch - startEpoch).minutes();
 
-  switch(by) {
+  switch(category) {
 
     case 'UNDERGROUND':
       return `With the Subway it's only ${formattedDuration}min.`;
@@ -44,6 +52,12 @@ const getTransportText = ({ by, startEpoch, endEpoch }) => {
     case 'BIKE':
       return `Bike there in ${formattedDuration}min.`;
 
+    case 'BUS':
+      return `The bus ride takes ${formattedDuration}min.`;
+
+    case 'SHIP':
+      return `Navigate there in ${formattedDuration}min.`;
+
     default:
       return `It's only ${formattedDuration}min`;
 
@@ -56,14 +70,14 @@ export default class Transport extends Component {
   render() {
 
     const {
-      by
+      category
     } = this.props;
 
     return (
       <View style={styles.listItem}>
         <View style={lineStyle} />
         <View style={styles.content}>
-          <Icon name={getIconName(by)} size={24} color="#003580" type="material-community" />
+          <Icon name={getIconName(category)} size={24} color="#003580" type="material-community" />
           <Text style={styles.text}>{ getTransportText(this.props) }</Text>
         </View>
       </View>

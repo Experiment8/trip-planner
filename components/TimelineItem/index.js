@@ -9,21 +9,29 @@ import Restaurant from "./components/Restaurant";
 import Tour from "./components/Tour";
 import Flight from "./components/Flight";
 
-const getElementByType = (item, onTransportsSelection) => {
+const getElementByType = (item, updateTransportsList, onTransportsSelection) => {
+
+  if (item.suggested) {
+    return (<Suggestion {...item} updateTransportsList={updateTransportsList} onTransportsSelection={onTransportsSelection} />)
+  }
 
   switch(item.category) {
 
     case 'HOTEL':
       return <Accommodation {...item} />;
 
-    case 'TRANSPORT':
+    case 'BUS':
+    case 'UNDERGROUND':
+    case 'WALKING':
+    case 'BIKE':
+    case 'TAXI':
+    case 'CRUISE':
       return <Transport {...item} onTransportsSelection={onTransportsSelection} />;
 
+    case 'ATTRACTION':
     case 'LANDMARK':
+    case 'EXPERIENCE':
       return <Landmark {...item} />;
-
-    case 'SUGGESTION':
-      return <Suggestion {...item} onTransportsSelection={onTransportsSelection} />;
 
     case 'RESTAURANT':
       return <Restaurant {...item} />;
@@ -32,10 +40,12 @@ const getElementByType = (item, onTransportsSelection) => {
       return <Tour {...item} />;
 
     case 'FLIGHT':
+    case 'AIRPORT':
       return <Flight {...item} />;
 
     default:
       return (<ListItem
+        key={item.id}
         title={item.name}
         subtitle={item.meta}
         icon={null}
@@ -51,9 +61,10 @@ export default class TimelineItem extends Component {
 
     const {
       item,
+      updateTransportsList,
       onTransportsSelection
     } = this.props;
 
-    return getElementByType(item, onTransportsSelection)
+    return getElementByType(item, updateTransportsList, onTransportsSelection)
   }
 }
