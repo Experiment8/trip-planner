@@ -29,7 +29,8 @@ export const itemListStyle = {
 };
 
 export const timeBadge = {
-  display   : 'flex',
-  color     : '#aaa',
-  alignItems: 'flex-start'
+  display       : 'flex',
+  color         : '#aaa',
+  alignItems    : 'flex-start',
+  flexDirection : 'row'
 };
