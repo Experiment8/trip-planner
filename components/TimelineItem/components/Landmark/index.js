@@ -11,7 +11,7 @@ const getTimeEstimate = ({ endEpoch, startEpoch }) => {
   return `${difference.hours()}:${difference.minutes()}h`;
 };
 
-import { lineStyle, dotStyle, itemListStyle } from '../../styles';
+import { lineStyle, dotStyle, itemListStyle, timeBadge } from '../../styles';
 
 export default class Landmark extends Component {
 
@@ -19,14 +19,13 @@ export default class Landmark extends Component {
 
     const {
       startEpoch,
-      endEpoch,
       name,
     } = this.props;
 
     return(
       <View style={itemListStyle}>
         <View style={lineStyle} />
-        <Text style={styles.badge}>
+        <Text style={timeBadge}>
           <View style={dotStyle} />
           <Text>{ Moment(startEpoch).format('HH:mm') }</Text>
         </Text>
@@ -65,10 +64,5 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 18
-  },
-  badge: {
-    display: 'flex',
-    color: '#aaa',
-    alignItems: 'center'
-  },
+  }
 });

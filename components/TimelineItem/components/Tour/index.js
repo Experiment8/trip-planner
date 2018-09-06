@@ -5,7 +5,7 @@ import { Icon, Text } from 'react-native-elements';
 
 import Moment from 'moment';
 
-import { lineStyle, dotStyle, itemListStyle } from '../../styles';
+import { lineStyle, dotStyle, itemListStyle, timeBadge } from '../../styles';
 
 const getTimeEstimate = ({ endEpoch, startEpoch }) => {
   const difference = Moment.duration(endEpoch - startEpoch);
@@ -25,7 +25,7 @@ export default class Tour extends Component {
     return(
       <View style={itemListStyle}>
         <View style={lineStyle} />
-        <Text style={styles.badge}>
+        <Text style={timeBadge}>
           <View style={dotStyle} />
           <Text>{ Moment(startEpoch).format('HH:mm') }</Text>
         </Text>
@@ -65,11 +65,6 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 18
-  },
-  badge: {
-    display: 'flex',
-    color: '#aaa',
-    alignItems: 'center'
   },
   button: {
     backgroundColor: 'blue'

@@ -26,8 +26,8 @@ export default class App extends Component {
         </View>
         <View style={styles.map}>
           <Image
-            source={{ uri: 'https://maps.googleapis.com/maps/api/staticmap?center=London&zoom=12&size=600x300' }}
-            style={{ width: 600, height: 300, resizeMode: Image.resizeMode.contain }}
+            source={{ uri: 'https://maps.googleapis.com/maps/api/staticmap?center=London&zoom=12&size=600x150' }}
+            style={{ width: 600, height: 150, resizeMode: Image.resizeMode.contain }}
           />
         </View>
         <ScrollView>
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     paddingTop: 10
   },
   map: {
-    height: 300
+    height: 150
   },
   spacer: {
     height: 100

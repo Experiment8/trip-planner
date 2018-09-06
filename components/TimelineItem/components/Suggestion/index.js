@@ -72,41 +72,41 @@ export default class Suggestion extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    display: 'flex',
-    padding: 10,
-    paddingTop: 15,
-    paddingLeft: 8,
-    height: 80,
+  container : {
+    display        : 'flex',
+    padding        : 10,
+    paddingTop     : 15,
+    paddingLeft    : 8,
+    height         : 80,
     backgroundColor: 'lightblue',
-    alignItems: 'flex-start',
-    flexDirection: 'row'
+    alignItems     : 'flex-start',
+    flexDirection  : 'row'
   },
-  icon: {
+  icon      : {
     flex: 0
   },
-  content: {
-    flex: 1,
+  content   : {
+    flex           : 1,
     backgroundColor: 'transparent'
   },
-  label : {
+  label     : {
     marginLeft: 10,
-    color: 'blue'
+    color     : 'blue'
   },
-  buttons: {
-    alignItems: 'flex-start',
+  buttons   : {
+    alignItems   : 'flex-start',
     flexDirection: 'row'
   },
   buttonText: {
-    color: 'blue',
+    color     : 'blue',
     fontWeight: 'bold',
-    fontSize: 14
+    fontSize  : 14
   },
-  button: {
-    flex: 0,
-    padding: 0,
-    margin: 0,
-    marginTop: 15,
+  button    : {
+    flex           : 0,
+    padding        : 0,
+    margin         : 0,
+    marginTop      : 15,
     backgroundColor: 'transparent'
   }
 });

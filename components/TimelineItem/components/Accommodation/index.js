@@ -5,7 +5,7 @@ import { Icon, Text } from 'react-native-elements';
 
 import Moment from 'moment';
 
-import { lineStyle, dotStyle, itemListStyle } from '../../styles';
+import { lineStyle, dotStyle, itemListStyle, timeBadge } from '../../styles';
 
 export default class Accommodation extends Component {
 
@@ -20,7 +20,7 @@ export default class Accommodation extends Component {
     return(
       <View style={itemListStyle}>
         <View style={lineStyle} />
-        <Text style={styles.badge}>
+        <Text style={timeBadge}>
           <View style={dotStyle} />
           <Text>{ Moment(startEpoch).format('HH:mm') }</Text>
         </Text>
@@ -60,10 +60,5 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 18
-  },
-  badge: {
-    display: 'flex',
-    color: '#aaa',
-    alignItems: 'center'
-  },
+  }
 });
