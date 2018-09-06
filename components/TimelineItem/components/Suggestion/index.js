@@ -2,45 +2,64 @@ import React, { Component, Fragment } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Icon, Text, Button } from 'react-native-elements';
 
+import Moment from 'moment';
+
 import Transport from '../Transport';
-import { getTransports } from "api";
 
-const getIconName = by => {
+const getIconName = category => {
 
-  switch(by) {
+  switch(category) {
 
-    case 'BIKE':
-      return 'bike';
-
-    case 'WALKING':
-      return 'walk';
+    case 'UNDERGROUND':
+      return 'subway';
 
     case 'TAXI':
       return 'taxi';
 
+    case 'WALKING':
+      return 'walk';
+
+    case 'BIKE':
+      return 'bike';
+
+    case 'BUS':
+      return 'bus';
+
+    case 'CRUISE':
+      return 'ship';
+
     default:
-      return by;
+      return 'transport';
 
   }
 
 };
 
-const getText = ({ startEpoch, endEpoch, by }) => {
-  const formattedDuration = (endEpoch - startEpoch) / 1e3 / 60;
+const getText = ({ startEpoch, endEpoch, category }) => {
+  const formattedDuration = Moment.duration(endEpoch - startEpoch).minutes();
 
-  switch(by) {
+  switch(category) {
 
-    case 'BIKE':
-      return `A ${formattedDuration}min biking will bring you there.`;
-
-    case 'WALKING':
-      return `A ${formattedDuration}min walk will bring you there.`;
+    case 'UNDERGROUND':
+      return `With the Subway it's only ${formattedDuration}min.`;
 
     case 'TAXI':
-      return `Take a cab, you'll be there in ${formattedDuration}min.`;
+      return `Just about ${formattedDuration}min by cab.`;
+
+    case 'WALKING':
+      return `Around ${formattedDuration}min walking distance.`;
+
+    case 'BIKE':
+      return `Bike there in ${formattedDuration}min.`;
+
+    case 'BUS':
+      return `The bus ride takes ${formattedDuration}min.`;
+
+    case 'SHIP':
+      return `Navigate there in ${formattedDuration}min.`;
 
     default:
-      return `Only ${formattedDuration}min.`;
+      return `It's only ${formattedDuration}min`;
 
   }
 
@@ -71,7 +90,7 @@ export default class Suggestion extends Component {
   render() {
 
     const {
-      by,
+      category,
       id,
       onTransportsSelection
     } = this.props;
@@ -87,7 +106,7 @@ export default class Suggestion extends Component {
         { accepted ? <Transport {...this.props} /> : null }
 
         { (!hide && !accepted) ? <View style={styles.container}>
-          <Icon name={getIconName(by)} style={styles.icon} size={22} color="#003580" type="material-community" />
+          <Icon name={getIconName(category)} style={styles.icon} size={22} color="#003580" type="material-community" />
           <View style={styles.content}>
             <Text style={styles.label}>
               { getText(this.props) }

@@ -3,14 +3,12 @@ import React, { Component, Fragment } from 'react';
 import { StyleSheet, View, ScrollView, Image, FlatList } from 'react-native';
 import { Header, Text, ListItem } from 'react-native-elements';
 
-import Moment from 'moment';
-
 import TimelineItem from './components/TimelineItem';
 import { getTimeline, getTransports } from './api';
 
-const getIconName = by => {
+const getIconName = category => {
 
-  switch(by) {
+  switch(category) {
 
     case 'UNDERGROUND':
       return 'subway';
@@ -24,6 +22,12 @@ const getIconName = by => {
     case 'BIKE':
       return 'bike';
 
+    case 'BUS':
+      return 'bus';
+
+    case 'CRUISE':
+      return 'ship';
+
     default:
       return 'transport';
 
@@ -35,9 +39,16 @@ const flattenItems = items => (
   items.map(item => ({ ...item, ...item.event, key: item.event.id.toString() }))
 );
 
-const updateCurrentTransport = (transportAbout, items, updatedItem) => (
+const updateCurrentTransport = (items, transportAbout, updatedItem) => (
   items.map((item) => {
-    if (item.id.toString() === transportAbout) return updatedItem;
+    if (item.id.toString() === transportAbout) {
+      return {
+        ...updatedItem,
+        suggested : false,
+        startEpoch: new Date(2018, 0, 1, 12, 0).valueOf(),
+        endEpoch  : new Date(2018, 0, 1, 12, updatedItem.timeToSpendInMinutes).valueOf()
+      };
+    }
     return item;
   })
 );
@@ -74,7 +85,7 @@ export default class App extends Component {
 
     getTransports()
       .then(transports => {
-        this.setState({ transports })
+        this.setState({ transports: transports.map((item) => ({ ...item, key: item.id.toString() })) })
       });
   }
 
@@ -116,11 +127,11 @@ export default class App extends Component {
             renderItem={({item}) => <ListItem
               key={item.id}
               title={item.name}
-              subtitle={`Takes around ${Moment.duration(item.endEpoch - item.startEpoch).minutes()}mins`}
-              leftIcon={{ name: getIconName(item.by), type: 'material-community' }}
+              subtitle={`Takes around ${item.timeToSpendInMinutes}mins`}
+              leftIcon={{ name: getIconName(item.category), type: 'material-community' }}
               onPress={() => {
                 this.setState({ timeline: updateCurrentTransport(this.state.timeline, transportAbout, item) });
-                this.toggleTransportsList();
+                this.toggleTransportsList(item.id);
               }} />}
           />
         </ScrollView> }
