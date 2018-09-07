@@ -1,3 +1,25 @@
+export const inspireMeTimeline = [{
+    key       : '398hg35h3',
+    category  : 'HOTEL',
+    startEpoch: 1538730000000,
+    name      : 'Curzon House Hotel',
+    checkOutEpoch  : 1538730000000
+}, {
+    key       : '3948ytbv',
+    category  : 'INSPIRE',
+    startEpoch: 1538730000000,
+    endEpoch  : 1538764500000
+}, {
+    key         : '3487tbeiwe',
+    category    : 'FLIGHT',
+    from        : 'LHR',
+    to          : 'AMS',
+    gate        : '02',
+    checkInEpoch: 1538757300000,
+    startEpoch  : 1538764500000,
+    endEpoch    : 1538772900000
+}];
+
 export const timeline1 = [{
   key       : '398hg35h3',
   category  : 'HOTEL',

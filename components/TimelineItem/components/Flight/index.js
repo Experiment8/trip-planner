@@ -33,7 +33,7 @@ export default class Landmark extends Component {
           </View>
           <View style={styles.data}>
             <Text h4 style={styles.name}>LHR to AMS</Text>
-            <Text>Check-in: { Moment(checkInEpoch).format('HH:mm') } - Gate { gate }</Text>
+            <Text>Check-in: { Moment(startEpoch).format('HH:mm') } - Terminal 5</Text>
           </View>
         </View>
       </View>

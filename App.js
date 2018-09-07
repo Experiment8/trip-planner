@@ -5,6 +5,7 @@ import { Header, Text, ListItem } from 'react-native-elements';
 
 import TimelineItem from './components/TimelineItem';
 import { getTimeline, getTransports } from './api';
+import { inspireMeTimeline } from './config';
 
 const getIconName = category => {
 
@@ -56,10 +57,11 @@ const updateCurrentTransport = (items, transportAbout, updatedItem) => (
 export default class App extends Component {
 
   state = {
-    timeline      : [],
-    transports    : [],
-    transportsList: false,
-    transportAbout: ''
+    timeline       : [],
+    transports     : [],
+    transportsList : false,
+    transportAbout : '',
+    hasHitInspireMe: false
   };
 
   constructor(props) {
@@ -69,13 +71,18 @@ export default class App extends Component {
     this.updateTransportsList = this.updateTransportsList.bind(this);
     this.onSuggestionHide     = this.onSuggestionHide.bind(this);
     this.onSuggestionAccept   = this.onSuggestionAccept.bind(this);
+    this.toggleInspireMe      = this.toggleInspireMe.bind(this);
   }
 
   toggleTransportsList(id) {
     this.setState({ transportsList: !this.state.transportsList, transportAbout: id.toString() })
   }
 
-  updateTransportsList(transports) {
+  toggleInspireMe() {
+    this.setState({ hasHitInspireMe: !this.state.hasHitInspireMe })
+  }
+
+    updateTransportsList(transports) {
     this.setState({ transports })
   }
 
@@ -101,7 +108,7 @@ export default class App extends Component {
     })
   }
 
-  componentDidMount() {
+    componentDidMount() {
     getTimeline()
       .then(timeline => {
         this.setState({ timeline: flattenItems(timeline.timelineItems) })
@@ -119,7 +126,8 @@ export default class App extends Component {
       timeline,
       transports,
       transportsList,
-      transportAbout
+      transportAbout,
+      hasHitInspireMe
     } = this.state;
 
     return (
@@ -140,10 +148,15 @@ export default class App extends Component {
         </View>
 
         { !transportsList ? <ScrollView>
-          { timeline.length ? <FlatList
+          { hasHitInspireMe && timeline.length ? <FlatList
             data={timeline}
-            renderItem={({item}) => <TimelineItem key={item.id} item={item} onAcceptSuggestion={this.onSuggestionAccept} onSuggestionHide={this.onSuggestionHide} onTransportsSelection={this.toggleTransportsList} />}
-          />  : null }
+            renderItem={({item}) => <TimelineItem key={item.id} item={item} onAcceptSuggestion={this.onSuggestionAccept} onSuggestionHide={this.onSuggestionHide} onTransportsSelection={this.toggleTransportsList} onHitInspireMe={this.toggleInspireMe} />}
+          />  :
+             <FlatList
+               data={inspireMeTimeline}
+               renderItem={({item}) => <TimelineItem key={item.id} item={item} onAcceptSuggestion={this.onSuggestionAccept} onSuggestionHide={this.onSuggestionHide} onTransportsSelection={this.toggleTransportsList} onHitInspireMe={this.toggleInspireMe} />}
+             />
+          }
         </ScrollView> :
         <ScrollView>
           <FlatList

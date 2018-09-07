@@ -13,13 +13,34 @@ const getTimeEstimate = ({ endEpoch, startEpoch }) => {
 
 import { lineStyle, dotStyle, itemListStyle, timeBadge } from '../../styles';
 
-export default class Landmark extends Component {
+const getIconName = category => {
+
+    switch(category) {
+
+        case 'ATTRACTION':
+            return 'university';
+
+        case 'LANDMARK':
+            return 'camera';
+
+        case 'EXPERIENCE':
+            return 'paper-plane';
+
+        default:
+            return 'university';
+
+    }
+
+};
+
+        export default class Landmark extends Component {
 
   render() {
 
     const {
       startEpoch,
       name,
+      category
     } = this.props;
 
     return(
@@ -31,7 +52,7 @@ export default class Landmark extends Component {
         </View>
         <View style={styles.content}>
           <View style={styles.icon}>
-            <Icon name="university" color="orange" type="font-awesome" size={24} />
+            <Icon name={getIconName(category)} color="orange" type="font-awesome" size={24} />
           </View>
           <View style={styles.data}>
             <Text h4 style={styles.name}>{ name }</Text>

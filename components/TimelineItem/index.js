@@ -8,11 +8,12 @@ import Suggestion from "./components/Suggestion";
 import Restaurant from "./components/Restaurant";
 import Tour from "./components/Tour";
 import Flight from "./components/Flight";
+import Inspire from "./components/Inspire";
 
-const getElementByType = (item, updateTransportsList, onTransportsSelection, onSuggestionHide, onAcceptSuggestion) => {
+const getElementByType = (item, updateTransportsList, onTransportsSelection, onSuggestionHide, onAcceptSuggestion, onHitInspireMe) => {
 
   if (item.suggested) {
-    return (<Suggestion {...item} onAcceptSuggestion={onAcceptSuggestion} onSuggestionHide={onSuggestionHide} updateTransportsList={updateTransportsList} onTransportsSelection={onTransportsSelection} />)
+    return (<Suggestion {...item} onAcceptSuggestion={onAcceptSuggestion} onHitInspireMe={onHitInspireMe} onSuggestionHide={onSuggestionHide} updateTransportsList={updateTransportsList} onTransportsSelection={onTransportsSelection} />)
   }
 
   switch(item.category) {
@@ -43,6 +44,9 @@ const getElementByType = (item, updateTransportsList, onTransportsSelection, onS
     case 'AIRPORT':
       return <Flight {...item} />;
 
+    case 'INSPIRE':
+      return <Inspire {...item} onHitInspireMe={onHitInspireMe} />;
+
     default:
       return (<ListItem
         key={item.id}
@@ -64,9 +68,10 @@ export default class TimelineItem extends Component {
       onSuggestionHide,
       onAcceptSuggestion,
       updateTransportsList,
-      onTransportsSelection
+      onTransportsSelection,
+      onHitInspireMe
     } = this.props;
 
-    return getElementByType(item, updateTransportsList, onTransportsSelection, onSuggestionHide, onAcceptSuggestion)
+    return getElementByType(item, updateTransportsList, onTransportsSelection, onSuggestionHide, onAcceptSuggestion, onHitInspireMe)
   }
 }
